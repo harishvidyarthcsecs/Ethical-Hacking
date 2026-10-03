@@ -1,0 +1,8 @@
+POST /login HTTP/1.1
+Host: free-lab-wifi.local
+User-Agent: curl/8.7.1
+Accept: */*
+Content-Length: 41
+Content-Type: application/x-www-form-urlencoded
+
+username=victim&password=PlainTextPass123
