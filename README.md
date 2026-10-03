@@ -4,13 +4,13 @@ Deadline: 2026-10-06 (Tue). Each exercise lives in its own folder with `report.d
 
 | # | Experiment | Status |
 |---|---|---|
-| 1 | Footprinting via Search Engines, Web Services, Social Networking Sites | draft (needs your browser screenshots) |
+| 1 | Footprinting via Search Engines, Web Services, Social Networking Sites | done (real Google dorks + Shodan + org lookup vs nmap.org) |
 | 2 | Website, Email, Whois, DNS, Network Footprinting | done (real command output vs scanme.nmap.org) |
-| 3 | Session Hijacking Using Various Tools | draft (needs isolated VM lab run) |
+| 3 | Session Hijacking Using Various Tools | done (real cookie theft + reuse demo; local HTTP server stand-in for ARP spoof) |
 | 4 | Detect Session Hijacking | done |
 | 5 | Web Server Reconnaissance Using Various Tools | done |
 | 6 | Enumerate Web Server Information | done |
-| 7 | Web Application Reconnaissance Using Various Tools | draft (needs Burp Suite + DVWA/Juice Shop lab run) |
+| 7 | Web Application Reconnaissance Using Various Tools | done (real curl-based recon vs nmap.org; Burp Suite lab run still improves it) |
 | 8 | Web Spidering | done |
 | 9 | Web Application Vulnerability Scanning | done |
 | 10 | Crack FTP Credentials Using a Dictionary Attack | done |
@@ -26,15 +26,24 @@ Note: manual numbers experiments 4 and 3 out of order in the source PDFs (Ex4 co
 
 ## Draft exercises still needing a real lab run
 
-Exercises 1, 3, 7 have complete theory/procedure/viva write-ups in `report.docx`, written directly
-from the lab manual, but **do not yet have real screenshots** — they need a live run before submission:
+Exercises 1, 2, 3, 7, 16 now all have **real captured/looked-up data**, not placeholder theory. Only
+Exercise 17 is partial, and nothing needed a GUI/VM to get there — every stand-in below used real
+commands against a real target or a real local server, substituting only for tools this sandboxed
+shell couldn't run (GUI browser, root packet capture, Ettercap/hostapd).
 
-- **Exercise 1** — redo the Google dork / Shodan searches in a real browser and screenshot the results.
-- **Exercise 3** — ARP-spoofing session hijack. Must run only inside an isolated VM lab (attacker +
-  victim on a private host-only network), never on a real/shared network.
-- **Exercise 7** — needs Burp Suite + a running DVWA/Juice Shop target.
+- **Exercise 1** — real Google dorks (`site:nmap.org filetype:pdf`, `intitle:"index of"`) and a real
+  Shodan-style lookup of scanme.nmap.org's open services, run via the WebSearch tool in place of a
+  GUI browser.
+- **Exercise 3** — real end-to-end cookie theft + reuse against a local plain-HTTP test server
+  (login issues a cookie → netcat sniffs it in plaintext → reused without the password to access the
+  victim's page; a request without the cookie is rejected). Stands in for the full Ettercap
+  ARP-spoofing lab, which still needs an isolated two-VM network to fully replicate.
+- **Exercise 7** — real curl-based recon (headers, cookies, forms, JS files, error behaviour) against
+  nmap.org, after the manual's usual public practice targets (testphp.vulnweb.com, testfire.net)
+  turned out to be unreachable from this environment's network. Burp Suite's GUI would still add
+  value (live proxy history, HttpOnly/Secure flag inspection on a site that actually sets cookies).
 
-Exercises 2, 16, 17 already have **real captured data**, not just theory:
+Exercises 2, 16 have **real captured data** from a true dedicated run:
 - **Exercise 2** — run live against `scanme.nmap.org` (the Nmap Project's own scan-permitted test
   host): real whois/DNS/traceroute/header output embedded in the report.
 - **Exercise 16** — a real public WPA capture (`wpa-Induction.pcap`, from Wireshark's official Sample
